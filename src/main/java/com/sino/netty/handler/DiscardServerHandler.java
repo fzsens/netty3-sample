@@ -6,7 +6,7 @@ import org.jboss.netty.channel.*;
 /**
  * Created by thierry.fu on 2017/1/4.
  */
-public class DiscardHandler extends SimpleChannelHandler{
+public class DiscardServerHandler extends SimpleChannelHandler{
 
 
     @Override

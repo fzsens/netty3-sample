@@ -1,6 +1,5 @@
 package com.sino.netty.server;
 
-import com.sino.netty.handler.DiscardHandler;
 import com.sino.netty.handler.EchoHandler;
 import org.jboss.netty.bootstrap.ServerBootstrap;
 import org.jboss.netty.channel.ChannelFactory;
@@ -31,7 +30,7 @@ public class DiscardServer {
         //如果需要添加很多的Handler，应该将这个Factory提取出来
         bootstrap.setPipelineFactory(new ChannelPipelineFactory() {
             public ChannelPipeline getPipeline() throws Exception {
-//                ChannelPipeline pipeline = Channels.pipeline(new DiscardHandler());
+//                ChannelPipeline pipeline = Channels.pipeline(new DiscardServerHandler());
                 ChannelPipeline pipeline = Channels.pipeline(new EchoHandler());
                 return pipeline;
             }
