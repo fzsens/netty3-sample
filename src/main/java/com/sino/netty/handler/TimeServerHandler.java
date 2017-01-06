@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by thierry.fu on 2017/1/4.
  */
+@ChannelHandler.Sharable
 public class TimeServerHandler extends SimpleChannelHandler {
 
     /**
@@ -24,13 +25,19 @@ public class TimeServerHandler extends SimpleChannelHandler {
         //写入到Buffer
 //        time.writeInt((int)(System.currentTimeMillis() / 1000L));
         //写入Channel
-        System.out.println("1");
+        System.out.println(this+"1");
         ChannelFuture f = ch.write(new UnixTime((int)System.currentTimeMillis()/1000));
         f.addListener(future -> {
             Channel ch1 = future.getChannel();
             //关闭也是返回ChannelFuture
             ch1.close();
         });
+    }
+
+    @Override
+    public void writeRequested(ChannelHandlerContext ctx, MessageEvent e) throws Exception {
+        System.out.println(this+"server write requested calling");
+        super.writeRequested(ctx, e);
     }
 
     @Override

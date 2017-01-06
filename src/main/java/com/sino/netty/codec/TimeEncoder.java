@@ -23,7 +23,7 @@ public class TimeEncoder extends SimpleChannelHandler {
         buffer.writeInt(time.getValue());
         //ctx.sendDownStream
         //TimeServer中写入的Message，会在此处进行encode
-        System.out.println("2");
+        System.out.println(this+"2");
         Channels.write(ctx,e.getFuture(),buffer);
     }
 }

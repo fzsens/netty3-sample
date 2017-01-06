@@ -1,6 +1,7 @@
 package com.sino.netty.server;
 
 import com.sino.netty.codec.TimeEncoder;
+import com.sino.netty.handler.DiscardServerHandler;
 import com.sino.netty.handler.TimeServerHandler;
 import org.jboss.netty.bootstrap.ServerBootstrap;
 import org.jboss.netty.channel.*;
@@ -35,8 +36,10 @@ public class TimeServer {
         //当server接受新的连接通过ChannelPipelineFactory创建Pipeline
         //如果需要添加很多的Handler，应该将这个Factory提取出来
         bootstrap.setPipelineFactory(() -> {
-//                ChannelPipeline pipeline = Channels.pipeline(new DiscardServerHandler());
-            return Channels.pipeline(new TimeEncoder(),new TimeServerHandler());
+            ChannelPipeline pipeline =
+                    Channels.pipeline(new TimeEncoder(),new DiscardServerHandler());
+            pipeline.addLast("2",new TimeServerHandler());
+            return pipeline;
         });
 
         //child 开头的配置Channel，否则配置ServerSocketChannel
@@ -52,9 +55,8 @@ public class TimeServer {
         allChannels.add(ch);
         //等待停止信号
         //waitforshutdownsignl()
-        ChannelGroupFuture futures = allChannels.close();
-        futures.awaitUninterruptibly();
-        factory.releaseExternalResources();
-
+//        ChannelGroupFuture futures = allChannels.close();
+//        futures.awaitUninterruptibly();
+//        factory.releaseExternalResources();
     }
 }
