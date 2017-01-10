@@ -1,9 +1,8 @@
 ## 事件驱动模型
 
-事件驱动模型相对应的是线程驱动模型，在线程驱动模型中，每一个请求都会对应一个线程进行处理，虽然现在CPU对多线程的优化已经有了很大的进步，在`Java`中每创建一个线程的开销大概是在1M左右的内存，但大量地创建和调度线程依然会很大程度上影响整体的性能表现，因为大多数的线程处理过程中，存在IO等待，实际上大量的线程是处于等待状态，但是还是必须要进行调度。
+>Divide-and-conquer is usually the best approach for achieving any scalability goal
 
-与线程模型对应的是事件驱动模型，也叫做消息驱动模型。事件驱动模型通过对事件的监听来是想应激性的程序处理。在`Java`的1.4引入的`NIO`模型中，通过`Selector`对已注册的`Channel`进行监听轮询并捕获注册的处理事件，将事件分发给处理器进行处理。就是一个典型的事件驱动模型。
+`SOA`近年来已经成为企业内部系统构建一个绕不开的话题，特别是有一定规模的企业，在进行内部系统划分和构建的时候，都会按照服务或者功能对系统进行边界划分，系统和系统之间通过直接调用或者消息中间件实现通信。
 
-![NIO](http://upload-images.jianshu.io/upload_images/3288959-bfd28bca8cefb156.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-第一个`mainReactor`主要进行`TCP`连接的握手，`subReactor`则负责分离连接的`Socket` 并负责读写网络，而具体的IO处理则交给`ThreadPool` 完成，分离读写和IO可以减少`subReactor`的等待时间，让其能够及时处理更多的读写请求，而IO线程则可以专注在IO处理层面的事务。
+

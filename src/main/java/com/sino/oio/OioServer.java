@@ -26,7 +26,7 @@ public class OioServer {
             while ((len = reader.read(buffer)) != -1) {
                 String temp = new String(buffer, 0, len);
                 int index;
-                //reader.read方法会一直堵塞直到客户端的Socket断开，使用这种方式隐藏字符长度的bug
+                //reader.read鏂规硶浼氫竴鐩村牭濉炵洿鍒板鎴风鐨凷ocket鏂紑锛屼娇鐢ㄨ繖绉嶆柟寮忛殣钘忓瓧绗﹂暱搴︾殑bug
                 if((index = temp.indexOf("eof")) != -1) {
                     stringBuilder.append(temp.substring(0,index));
                     break;
